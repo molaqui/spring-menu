@@ -149,7 +149,7 @@ public class AuthController {
         user.setCity(city);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setWebsiteUrl("http://localhost:5173/"+storeName);
+        user.setWebsiteUrl("https://lmenu.netlify.app/"+storeName);
         user.setLogo(logo.getBytes());
         userService.addUser(user);
         return ResponseEntity.ok("new User ajoutées avec succès");
