@@ -22,12 +22,14 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
+
     @PostMapping
     public ResponseEntity<Message> createMessage(@RequestBody Message message, @RequestParam Long userId) {
         Optional<User> userOptional = userService.findById(userId);
         if (userOptional.isPresent()) {
             message.setUser(userOptional.get());
             Message savedMessage = messageService.saveMessage(message);
+
             return ResponseEntity.ok(savedMessage);
         } else {
             return ResponseEntity.badRequest().build(); // Return 400 if user not found
@@ -43,6 +45,8 @@ public class MessageController {
     public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {
         boolean isDeleted = messageService.deleteMessageById(id);
         if (isDeleted) {
+
+
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

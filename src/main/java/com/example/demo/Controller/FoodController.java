@@ -77,8 +77,6 @@ public class FoodController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateFood(
             @PathVariable Long id,
-            @RequestParam(value = "images", required = false) MultipartFile[] files,
-            @RequestParam(value = "removedImageIds", required = false) List<Long> removedImageIds,
             @RequestParam("name") String name,
             @RequestParam("price") Double price,
             @RequestParam("description") String description,
@@ -89,26 +87,10 @@ public class FoodController {
                     .orElseThrow(() -> new RuntimeException("Category not found"));
             Food food = foodService.findById(id, userId)
                     .orElseThrow(() -> new RuntimeException("Food not found"));
-
             food.setName(name);
             food.setPrice(price);
             food.setDescription(description);
             food.setCategory(category);
-
-            // Remove images marked for deletion
-            if (removedImageIds != null) {
-                foodService.removeImagesById(removedImageIds);
-            }
-
-            // Add new images
-            if (files != null && files.length > 0) {
-                List<byte[]> imageBytesList = new ArrayList<>();
-                for (MultipartFile file : files) {
-                    imageBytesList.add(file.getBytes());
-                }
-                foodService.addImagesToFood(food, imageBytesList);
-            }
-
             foodService.saveFood(food, userId);
             return ResponseEntity.ok("Food updated successfully");
         } catch (Exception e) {
@@ -148,6 +130,28 @@ public class FoodController {
             return ResponseEntity.ok(count);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
+        }
+    }
+
+    @PostMapping("/{id}/add-image")
+    public ResponseEntity<String> addImageToFood(
+            @PathVariable Long id,
+            @RequestParam("image") MultipartFile file,
+            @RequestParam("userId") Long userId) {
+        try {
+            Food food = foodService.findById(id, userId)
+                    .orElseThrow(() -> new RuntimeException("Food not found"));
+
+            FoodImage image = new FoodImage();
+            image.setImage(file.getBytes());
+            image.setFood(food);
+
+            food.getImages().add(image);
+            foodService.saveFood(food, userId);
+
+            return ResponseEntity.ok("Image added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error adding image: " + e.getMessage());
         }
     }
 }

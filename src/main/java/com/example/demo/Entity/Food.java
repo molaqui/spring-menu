@@ -34,5 +34,8 @@ public class Food {
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("food")
     private List<FoodImage> images;
+
+
+
 }
 

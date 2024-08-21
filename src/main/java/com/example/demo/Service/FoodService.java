@@ -62,32 +62,7 @@ public class FoodService {
         }
     }
 
-    public void addImagesToFood(Food food, List<byte[]> imageBytesList) {
-        for (byte[] imageBytes : imageBytesList) {
-            FoodImage foodImage = new FoodImage();
-            foodImage.setImage(imageBytes);
-            foodImage.setFood(food);
-            foodImageRepository.save(foodImage);
-        }
-    }
 
-    public void removeImagesById(List<Long> imageIds) {
-        for (Long imageId : imageIds) {
-            foodImageRepository.deleteById(imageId);
-        }
-    }
-    public void updateFoodImages(Food food, List<byte[]> imageBytesList) {
-        // Clear existing images
-        foodImageRepository.deleteAllByFood(food);
-
-        // Add new images
-        for (byte[] imageBytes : imageBytesList) {
-            FoodImage foodImage = new FoodImage();
-            foodImage.setImage(imageBytes);
-            foodImage.setFood(food);
-            foodImageRepository.save(foodImage);
-        }
-    }
 
     public long countFoodsByUserId(Long userId) {
         return foodRepository.countByUserId(userId);

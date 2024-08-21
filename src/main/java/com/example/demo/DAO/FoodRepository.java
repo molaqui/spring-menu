@@ -12,4 +12,6 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
     List<Food> findAllByCategoryNameAndUserId(String categoryName, Long userId);
     Optional<Food> findByIdAndUserId(Long id, Long userId); // Add this method if it doesn't exist
     long countByUserId(Long userId);
+
+    void deleteByCategoryId(Long categoryId);
 }
