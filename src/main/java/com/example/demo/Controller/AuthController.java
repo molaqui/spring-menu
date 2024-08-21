@@ -109,7 +109,7 @@ public class AuthController {
             if (params.containsKey("city")) user.setCity(params.get("city"));
             if (params.containsKey("firstName")) user.setFirstName(params.get("firstName"));
             if (params.containsKey("lastName")) user.setLastName(params.get("lastName"));
-            user.setWebsiteUrl("http://localhost:5173/"+params.get("storeName"));
+            user.setWebsiteUrl("https://lmenu.netlify.app"+params.get("storeName"));
             // Mettre à jour le logo si fourni
             if (logo != null && !logo.isEmpty()) {
                 try {
