@@ -12,9 +12,10 @@ public class GlobalCORSConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://localhost:5174");
+        corsConfiguration.addAllowedOrigin("https://lmenu-admin.netlify.app");
         corsConfiguration.addAllowedOrigin("http://localhost:5173");
-        corsConfiguration.addAllowedOrigin("http://localhost:5175");
+        corsConfiguration.addAllowedOrigin("https://lmenu-v1.netlify.app");
+        corsConfiguration.addAllowedOrigin("https://lmenu.netlify.app");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
