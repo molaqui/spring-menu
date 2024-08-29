@@ -14,7 +14,6 @@ import java.io.IOException;
 @RequestMapping("/api")
 public class VonageMessageController {
 
-    @PostMapping("/send-message")
     
     @PostMapping("/send-message")
     public ResponseEntity<String> sendMessage(@RequestBody MessageRequest request) {
