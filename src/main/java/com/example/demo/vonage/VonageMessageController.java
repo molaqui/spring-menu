@@ -15,6 +15,8 @@ import java.io.IOException;
 public class VonageMessageController {
 
     @PostMapping("/send-message")
+    
+    @PostMapping("/send-message")
     public ResponseEntity<String> sendMessage(@RequestBody MessageRequest request) {
         String apiKey = "fd48d033";
         String apiSecret = "w993lJT8tKqV0GzU";
